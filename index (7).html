@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body{
+            background-image: url(https://images.pexels.com/photos/28199289/pexels-photo-28199289/free-photo-of-a-snowy-mountain-covered-in-fog-with-a-snow-covered-peak.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            width: 420px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8)50%, rgba(0, 0, 0, 0.8)50%);
+            color: white;
+            border-radius: 12px;
+            padding: 30px 40px;
+        }
+        input{
+            height: 20px;
+            border-radius: 10px;
+            border: none;
+            border: 2px solid rgb(120, 152, 172);
+        }
+        #id6{
+            background-color: rgb(145, 169, 184);
+            margin-left: 28px;
+            height: 30px;
+        }
+        #id6:hover{
+            background-color: thistle;
+            border: 2px solid thistle;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+
+    <!-- for javascript we use here .. events. onsubmit .. action we use as an extra purpose -->
+    <div class="container">
+        <h1>Form Validation!</h1>
+       
+        <form onsubmit="return data()" action="submit.html" target="_blank">
+
+            UserId: <input type="text" placeholder="user" id="id1"><br><br>
+
+            Contact: <input type="Number" placeholder="contact" id="id2"><br><br>
+
+            Password: <input type="password" placeholder="password" id="id3"><br><br>
+
+            Confirm: <input type="password" placeholder="confirm password" id="id4"><br><br>
+
+            <input type="checkbox" id="togglePassword" onclick="togglePasswordVisibility()"> Show/Hide Password<br><br>
+
+            Email: <input type="email" placeholder="Enter Your Email" id="id5"><br><br>
+
+            <input type="submit" value="Submit your data" id="id6">
+        </form>
+    </div>
+
+    <script>
+        function data() {
+            let a = document.getElementById('id1').value; // User ID
+            let b = document.getElementById('id2').value; // Contact
+            let c = document.getElementById('id3').value; // Password
+            let d = document.getElementById('id4').value; // Confirm Password
+            let e = document.getElementById('id5').value; // Email
+
+
+            let namea = /^[A-Za-z]{3,}$/;
+            // Password validation pattern
+            let passwordPattern = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8}$/;
+            // Email validation pattern
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+            // Check if any field is empty
+            if (a == "" || b == "" || c == "" || d == "" || e == "") {
+                alert('All fields are mandatory');
+                return false;
+
+            } else if (!namea.test(a)) {
+                alert("enter proper alphabet for your name");
+                return false;
+            }
+            // Check if the contact number is exactly 10 digits
+            else if (b.length < 10 || b.length > 10) {
+                alert("Contact number should be exactly 10 digits");
+                return false;
+                // Check if the passwords match
+            } else if (c !== d) {
+                alert('Passwords do not match');
+                return false;
+                // Check if the password meets the required conditions
+            } else if (!passwordPattern.test(c)) {
+                alert('Password must have at least 1 uppercase, 1 lowercase, 1 number, 1 special character, and be at least 8 characters long');
+                return false;
+                // Check if the email is valid using the pattern
+            } else if (!emailPattern.test(e)) {
+                alert("Enter a valid email address");
+                return false;
+
+            } else {
+                // If everything is correct, allow the form to be submitted
+                return true;
+            }
+        }
+
+        // Function to toggle password visibility
+        function togglePasswordVisibility() {
+            let passwordField = document.getElementById('id3');
+            let confirmPasswordField = document.getElementById('id4');
+            let toggleCheckbox = document.getElementById('togglePassword');
+
+            if (toggleCheckbox.checked) {
+                passwordField.type = "text";
+                confirmPasswordField.type = "text";
+            } else {
+                passwordField.type = "password";
+                confirmPasswordField.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>
